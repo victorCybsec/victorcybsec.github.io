@@ -5,7 +5,7 @@ platform: "Offsec"
 difficulty: "Easy"     # Easy, Medium, Hard, Insane
 os: "Linux"            # Linux, Windows
 tags: ["CTF","Offsec","Linux", "Easy"]
-skills: ["SNMP enum","CVE-2007-4560"]
+skills: ["SNMP Enum","CVE-2007-4560"]
 ---
 
 En este tutorial, demuestro cómo obtuve acceso completo al sistema ClamAV de OffSec Proving Grounds.
@@ -176,7 +176,7 @@ Attacking 192.168.69.42...
 221 2.0.0 localhost.localdomain closing connection
 ```
 
-Luego, deberíamos poder conectarnos a la máquina (El exploit abre un puerto para que nos conectemos - Bind Shell)
+Luego, deberíamos poder conectarnos a la máquina (El exploit abre un puerto para que nos conectemos - *Bind Shell*)
 
 ```bash
 nc -nv 192.168.69.42 31337
