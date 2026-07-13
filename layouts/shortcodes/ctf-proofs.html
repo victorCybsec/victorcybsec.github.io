@@ -1,0 +1,6 @@
+<details class="custom-collapse">
+    <summary style="cursor: pointer; font-weight: bold;">{{ .Get "title" | default "Proof" }}</summary>
+    <div class="collapse-content" style="margin-top: 10px;">
+        {{ .Inner | markdownify }}
+    </div>
+</details>

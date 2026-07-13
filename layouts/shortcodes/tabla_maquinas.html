@@ -1,0 +1,128 @@
+<style>
+    /* Oculta los bloques de artículos que renderiza por defecto el layout de sección de Blowfish */
+    main .space-y-10,
+    main .grid,
+    main article+.mt-10,
+    .prose+div,
+    .not-prose~div {
+        display: none !important;
+    }
+
+    /* Mantiene visible únicamente nuestro buscador y nuestra tabla */
+    main .not-prose,
+    main .not-prose div {
+        display: block !important;
+    }
+
+    /* TRUCO CLAVE: Buscamos el contenedor rígido del tema y le reventamos el ancho máximo */
+    .prose,
+    .max-w-prose,
+    main .max-w-screen-xl,
+    section.max-w-prose {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+</style>
+
+<div style="margin-top: 20px; width: 100% !important; max-width: 100% !important; min-width: 100%;">
+
+    <!-- Buscador Simple (Ancho máximo controlado para mantener estética) -->
+    <div style="margin-bottom: 25px; width: 100%; max-width: 600px;">
+        <input type="text" id="buscador" onkeyup="buscarMaquina()" placeholder='{{ .Get "placeholder" }}'
+            style="padding: 12px; width: 100%; border-radius: 6px; border: 1px solid #444; font-size: 16px; background-color: #fff; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); box-sizing: border-box;">
+    </div>
+
+    <!-- Contenedor con scroll horizontal inteligente por si la pantalla se reduce -->
+    <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+        <table id="tablaMaquinas"
+            style="width: 100% !important; min-width: 750px; border-collapse: collapse; text-align: left; font-size: 14px; table-layout: fixed;">
+            <thead>
+                <tr style="border-bottom: 2px solid #555; font-weight: bold; color: #fff;">
+                    <th style="padding: 10px 5px; width: 20%;">{{ .Get "machine" }}</th>
+                    <th style="padding: 10px 5px; width: 15%;">{{ .Get "difficulty" }}</th>
+                    <th style="padding: 10px 5px; width: 15%;">S.O.</th>
+                    <th style="padding: 10px 5px; width: 50%;">{{ .Get "skills" }}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{ range .Site.RegularPages.ByTitle }}
+                <tr class="fila-maquina" style="border-bottom: 1px solid #333; transition: background 0.2s;">
+                    <!-- Columna 0: Máquina -->
+                    <td
+                        style="padding: 12px 10px; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <a href="{{ .Permalink }}" style="color: #64b5f6; text-decoration: none;">{{ .Title }}</a>
+                    </td>
+
+                    <!-- Columna 1: Dificultad -->
+                    <td style="padding: 12px 10px;">
+                        {{ $diff := .Params.difficulty | default "Medium" }}
+                        {{ if eq $diff "Easy" }}
+                        <span
+                            style="color: #4caf50; font-weight: bold; background: rgba(76,175,80,0.15); padding: 3px 8px; border-radius: 4px;">Easy</span>
+                        {{ else if eq $diff "Hard" }}
+                        <span
+                            style="color: #f44336; font-weight: bold; background: rgba(244,67,54,0.15); padding: 3px 8px; border-radius: 4px;">Hard</span>
+                        {{ else if eq $diff "Insane" }}
+                        <span
+                            style="color: #9c27b0; font-weight: bold; background: rgba(156,39,176,0.15); padding: 3px 8px; border-radius: 4px;">Insane</span>
+                        {{ else }}
+                        <span
+                            style="color: #ff9800; font-weight: bold; background: rgba(255,152,0,0.15); padding: 3px 8px; border-radius: 4px;">Medium</span>
+                        {{ end }}
+                    </td>
+
+                    <!-- Columna 2: S.O. -->
+                    <td style="padding: 12px 10px; color: #ddd; white-space: nowrap;">
+                        {{ if eq .Params.os "Windows" }}🪟 Windows{{ else }}🐧 Linux{{ end }}
+                    </td>
+
+                    <!-- Columna 3: Habilidades -->
+                    <td style="padding: 12px 10px; color: #aaa; font-size: 14px;">
+                        {{ if .Params.skills }}
+                        <!-- Cambiado a wrap natural para que use el espacio que le da el 50% de la tabla -->
+                        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
+                            {{ range .Params.skills }}
+                            <span
+                                style="background: #2d3748; color: #cbd5e1; padding: 4px 8px; border-radius: 4px; display: inline-block; white-space: nowrap;">
+                                {{ . }}
+                            </span>
+                            {{ end }}
+                        </div>
+                        {{ else }}
+                        <span style="color:#666; font-style:italic;">Ninguna</span>
+                        {{ end }}
+                    </td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function buscarMaquina() {
+        var input, filter, table, tr, celdas, tdMaquina, tdSkills, i, txtValueMaquina, tdValueSkills;
+        input = document.getElementById("buscador");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tablaMaquinas");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 1; i < tr.length; i++) {
+            celdas = tr[i].getElementsByTagName("td");
+            if (celdas.length > 0) {
+                tdMaquina = celdas.item(0);
+                tdSkills = celdas.item(3);
+
+                txtValueMaquina = tdMaquina ? (tdMaquina.textContent || tdMaquina.innerText) : "";
+                tdValueSkills = tdSkills ? (tdSkills.textContent || tdSkills.innerText) : "";
+
+                if (txtValueMaquina.toUpperCase().indexOf(filter) > -1 || tdValueSkills.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

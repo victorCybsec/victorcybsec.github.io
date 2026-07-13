@@ -1,0 +1,47 @@
+[en]
+  languageName = "English"
+  weight = 1
+  locale = "en"
+  label = "English"
+  title = "~V1T1"
+
+  [en.params]
+    displayName = "EN"
+    isoCode = "en"
+    rtl = false
+    dateFormat = "2 January 2006"
+
+  [en.params.author]
+     name = "~V1T1"
+     email = "victor.cybsec@gmail.com"
+     image = "img/logo.jpg"
+     headline = "Welcome to my home directory 😉. Here you will find write-ups, technology-related topics, and my journey from source to root. Let's build the Víctor-ia over malware 🚀"
+     links = [
+       { email = "mailto:victor.cybsec@gmail.com" },
+       { github = "https://github.com/victorCybsec" },
+       { linkedin = "https://linkedin.com/in/víctor-moreno-pérez-27977b213/" }
+     ]
+
+[es]
+  languageName = "Español"
+  weight = 2
+  locale = "es"
+  label = "Español"
+  title = "~V1T1 (ES)"
+
+[es.params]
+    displayName = "ES"
+    isoCode = "es"
+    rtl = false
+    dateFormat = "2 de January de 2006"
+
+  [es.params.author]
+     name = "~V1T1"
+     email = "victor.cybsec@gmail.com"
+     image = "img/logo.jpg"
+     headline = "Bienvenido a mi directorio principal 😉. Aquí encontrarás write-ups, temas relacionados con tecnología y mi camino desde el código fuente hasta root. ¡Construyamos la Víctor-ia sobre el malware! 🚀"
+     links = [
+       { email = "mailto:victor.cybsec@gmail.com" },
+       { github = "https://github.com/victorCybsec" },
+       { linkedin = "https://linkedin.com/in/víctor-moreno-pérez-27977b213/" }
+     ]

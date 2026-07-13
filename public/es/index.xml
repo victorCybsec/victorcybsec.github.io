@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>~V1T1 (ES)</title>
+    <link>http://localhost:1313/es/</link>
+    <description>Recent content on ~V1T1 (ES)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>es</language>
+    <managingEditor>victor.cybsec@gmail.com (~V1T1)</managingEditor>
+    <webMaster>victor.cybsec@gmail.com (~V1T1)</webMaster>
+    <copyright>© 2026 ~V1T1</copyright>
+    <lastBuildDate>Mon, 13 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/es/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ClamAV</title>
+      <link>http://localhost:1313/es/write-ups/offsec/clamav/</link>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 +0000</pubDate>
+      <author>victor.cybsec@gmail.com (~V1T1)</author>
+      <guid>http://localhost:1313/es/write-ups/offsec/clamav/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>
