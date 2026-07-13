@@ -18,6 +18,9 @@ En este tutorial, demuestro cómo obtuve acceso completo al sistema ClamAV de Of
 ## Escaneo Nmap
 
 ```bash
+sudo nmap -sSCV -vvv -n -Pn -p- --min-rate 5000 192.168.69.42
+
+<SNIP>
 
 PORT    STATE SERVICE     REASON         VERSION
 22/tcp  open  ssh         syn-ack ttl 63 OpenSSH 3.8.1p1 Debian 8.sarge.6 (protocol 2.0)
@@ -73,13 +76,22 @@ Host script results:
 |_clock-skew: mean: 5h59m58s, deviation: 2h49m42s, median: 3h59m58s
 |_smb2-time: Protocol negotiation failed (SMB2)
 
-```
+<SNIP>
 
 ```
+
+```bash
+sudo nmap -sUV --version-intensity 0 -F 192.168.69.42
+
+<SNIP>
+
 PORT    STATE SERVICE    VERSION
 137/udp open  netbios-ns Samba nmbd netbios-ns (workgroup: WORKGROUP)
 161/udp open  snmp       SNMPv1 server (public)
 Service Info: Hosts: 0XBABE, 0xbabe.local
+
+<SNIP>
+
 ```
 
 ## Enumeración de Servicios
@@ -123,11 +135,14 @@ Ejecutando `snmp-check` podemos ver que **clamav-milter** está ejecutándose.
 
 ```bash
 snmp-check 192.168.69.42
-<SNIP>
-  3777                  runnable              clamav-milter         /usr/local/sbin/clamav-milter  --black-hole-mode -l -o -q /var/run/clamav/clamav-milter.ctl
-<SNIP>
-```
 
+<SNIP>
+
+  3777                  runnable              clamav-milter         /usr/local/sbin/clamav-milter  --black-hole-mode -l -o -q /var/run/clamav/clamav-milter.ctl
+
+<SNIP>
+
+```
 
 ## Explotación
 
@@ -146,7 +161,14 @@ Shellcodes: No Results
 Aunque no logré enumerar la versión de **clamav-milter**, al profundizar en mi enumeración con `snmp-check` vi que **sendmail** estaba ejecutándose.
 
 ```bash
+snmp-check 192.168.69.42
+
+<SNIP>
+
  3881                  runnable              sendmail-mta          sendmail: MTA: accepting connections
+
+<SNIP>
+ 
 ```
 
 Después de leer y entender el exploit, ejecutamos el exploit.
