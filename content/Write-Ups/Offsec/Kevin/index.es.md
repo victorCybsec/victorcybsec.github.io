@@ -8,12 +8,12 @@ tags: ["CTF","Offsec","Windows", "Easy"]
 skills: ["CVE-2009-2685"]
 ---
 
-En este tutorial, demuestro cómo obtuve acceso completo al sistema Kevin de OffSec Proving Grounds.
+En este tutorial, muestro cómo obtuve acceso completo al sistema Kevin de OffSec Proving Grounds.
 
-## Espacio de Aprendizaje
+## Objetivos de Aprendizaje
 
 - Scripting en Python
-- Hewlett-Packard (HP) Power Manager Administration Power Manager Administration - Universal Buffer Overflow (CVE-2009-2685)
+- Hewlett-Packard (HP) Power Manager Administration - Universal Buffer Overflow (CVE-2009-2685)
 
 ## Escaneo con Nmap
 
@@ -127,7 +127,7 @@ Host script results:
 
 ### SMB
 
-Parecía vulnerable a MS17-010 (Eternalblue). Como esto podría bloquear el equipo, vamos a continuar buscando y lo dejaremos por ahora.
+Parecía vulnerable a MS17-010 (Eternalblue). Como la explotación podría bloquear el equipo, decidí seguir indagando y dejarlo por ahora.
 
 ### HTTP
 
@@ -135,12 +135,12 @@ Navegando a la página web en el puerto 80, encontramos **HP Power Manager**.
 
 ![alt text](img/http_login.png)
 
-Podemos iniciar sesión con credenciales bastante inseguras: `admin:admin`. Esto nos permite hacer una enumeración más profunda del servicio. Ahora sabemos que nos enfrentamos a
-**HP Power Manager 4.2 (Build 7)**, que es vulnerable a un Buffer Overflow.
+Podemos iniciar sesión con credenciales bastante débiles: `admin:admin`. Esto nos permite realizar una enumeración más profunda del servicio. Ahora sabemos que estamos tratando con
+**HP Power Manager 4.2 (Build 7)**, que es vulnerable a un buffer overflow.
 
 ## Explotación
 
-Buscando un poco, pude encontrar [este](https://github.com/Muhammd/HP-Power-Manager) exploit.
+Después de investigar un poco, pude encontrar [este](https://github.com/Muhammd/HP-Power-Manager) exploit.
 
 Cambios realizados en el exploit:
 - Cambié el payload de `msfvenom` (`msfvenom -p windows/shell_bind_tcp LHOST=192.168.79.45 LPORT=1234  EXITFUNC=thread -b '\x00\x1a\x3a\x26\x3f\x25\x23\x20\x0a\x0d\x2f\x2b\x0b\x5' x86/alpha_mixed --platform windows -f python`)
@@ -166,7 +166,7 @@ nt authority\system
 
 ## Post-Explotación
 
-**Ya soy nt authority\system**
+**Ya tenemos nt authority\system**
 
 ## Pruebas
 

